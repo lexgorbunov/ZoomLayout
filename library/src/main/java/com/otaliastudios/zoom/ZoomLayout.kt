@@ -147,6 +147,7 @@ open class ZoomLayout private constructor(
 
     private fun onUpdate() {
         if (hasClickableChildren) {
+            println("🔦 block 1")
             if (childCount > 0) {
                 val child = getChildAt(0)
                 child.pivotX = 0f
@@ -155,11 +156,14 @@ open class ZoomLayout private constructor(
                 child.translationY = engine.scaledPanY
                 child.scaleX = engine.realZoom
                 child.scaleY = engine.realZoom
+                println("🔦 translationX ${engine.scaledPanX}, translationY ${engine.scaledPanY}, realzoom ${engine.realZoom}")
             }
         } else {
+            println("🔦 invalidate 1")
             invalidate()
         }
         if ((isHorizontalScrollBarEnabled || isVerticalScrollBarEnabled) && !awakenScrollBars()) {
+            println("🔦 invalidate 2")
             invalidate()
         }
     }
@@ -176,11 +180,13 @@ open class ZoomLayout private constructor(
         val result: Boolean
 
         if (!hasClickableChildren) {
+            println("🔦 drow 1")
             val save = canvas.save()
             canvas.concat(engine.matrix)
             result = super.drawChild(canvas, child, drawingTime)
             canvas.restoreToCount(save)
         } else {
+            println("🔦 drow 2")
             result = super.drawChild(canvas, child, drawingTime)
         }
 
